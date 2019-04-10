@@ -1,0 +1,107 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.1.0-alpha05'
+    implementation 'androidx.appcompat:appcompat:1.1.0-alpha04'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0-alpha03'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha03'
+}
+repositories {
+    mavenCentral()
+}
+
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+artifacts {
+    archives sourcesJar
+}
+
+def siteUrl = 'https://github.com/Tlaster/FloatingHover'
+def gitUrl = 'https://github.com/Tlaster/FloatingHover.git'
+def issueUrl = 'https://github.com/Tlaster/FloatingHover/issues'
+def buildNum = System.getenv('TRAVIS_BUILD_NUMBER')
+
+group = "moe.tlaster"
+version = "1.0.$buildNum"
+
+install {
+    repositories.mavenInstaller {
+        pom {
+            project {
+                packaging 'aar'
+                name 'Floating hover like google translate "Tap to translate"'
+                url siteUrl
+                licenses {
+                    license {
+                        url 'https://github.com/Tlaster/FloatingHover/blob/master/LICENSE.md'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'tlaster'
+                        name 'tlaster'
+                        email 'tlaster@outlook.com'
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
+        }
+    }
+}
+
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_API_KEY')
+    configurations = ['archives']
+    pkg {
+        repo = "FloatingHover"
+        name = "FloatingHover"
+        desc = "Floating hover like google translate \"Tap to translate\""
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        issueTrackerUrl = issueUrl
+        licenses = ["MIT"]
+        labels = ['android']
+        publish = true
+        publicDownloadNumbers = true
+    }
+}
