@@ -21,7 +21,7 @@
             android:layout_margin="16dp"
             android:background="@android:color/white"
             android:id="@+id/text"
-            android:text="dsadsa"
+            android:text="Hello World!"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 </moe.tlaster.floatinghover.FloatingView>
