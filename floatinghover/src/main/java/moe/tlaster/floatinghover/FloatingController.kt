@@ -92,6 +92,7 @@ class FloatingController(private val context: Context, val floatingView: Floatin
     private val closeIconViewRunnable = Runnable {
         floatingView.closeIconView()
         windowViewController.removeView(dragger)
+        windowViewController.removeView(floatingView)
     }
 
     private fun stopTimer() {
