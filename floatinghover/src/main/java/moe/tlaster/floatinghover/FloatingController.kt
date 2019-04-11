@@ -8,7 +8,7 @@ import android.view.View
 import android.view.WindowManager
 import androidx.annotation.LayoutRes
 
-class FloatingController(private val context: Context, private val floatingView: FloatingView) {
+class FloatingController(private val context: Context, val floatingView: FloatingView) {
     constructor(context: Context, @LayoutRes layout: Int):
             this(context, LayoutInflater.from(context).inflate(layout, null, false) as FloatingView)
 
