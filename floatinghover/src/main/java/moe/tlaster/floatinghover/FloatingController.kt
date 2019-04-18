@@ -118,10 +118,7 @@ class FloatingController(private val context: Context, val floatingView: Floatin
     }
 
     fun hide() {
-        stopTimer()
-        floatingView.closeIconView()
-        windowViewController.removeView(dragger)
-        windowViewController.removeView(floatingView)
+        floatingView.requireClose()
     }
 
     private fun showDragger() {

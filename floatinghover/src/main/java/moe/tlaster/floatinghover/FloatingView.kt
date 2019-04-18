@@ -211,7 +211,7 @@ class FloatingView : RelativeLayout {
     var closeCallback: Runnable? = null
     var requestFocusable: Runnable? = null
 
-    private fun requireClose() {
+    internal fun requireClose() {
         if (isClosing) {
             return
         }
