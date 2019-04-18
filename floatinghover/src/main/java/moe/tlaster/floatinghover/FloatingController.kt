@@ -54,9 +54,9 @@ class FloatingController(private val context: Context, val floatingView: Floatin
         }
         dragger.setOnClickListener {
             stopTimer()
-            floatingView.onDraggerClick()
-            windowViewController.makeTouchable(floatingView)
             windowViewController.removeView(dragger)
+            windowViewController.makeTouchable(floatingView)
+            floatingView.onDraggerClick()
         }
         dragger.setOnTouchListener { v, event ->
             when (event.action) {
@@ -115,6 +115,13 @@ class FloatingController(private val context: Context, val floatingView: Floatin
             return
         }
         showDragger()
+    }
+
+    fun hide() {
+        stopTimer()
+        floatingView.closeIconView()
+        windowViewController.removeView(dragger)
+        windowViewController.removeView(floatingView)
     }
 
     private fun showDragger() {
