@@ -43,7 +43,7 @@ class FloatingController(private val context: Context, val floatingView: Floatin
                 draggerHeight = draggerView.height
                 draggerPositionX = draggerView.x
                 draggerPositionY = draggerView.y
-                showDragger()
+//                showDragger()
             }
         }
         floatingView.requestFocusable = Runnable {
@@ -115,6 +115,18 @@ class FloatingController(private val context: Context, val floatingView: Floatin
             return
         }
         showDragger()
+    }
+
+    fun showContentView() {
+        windowViewController.addView(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.MATCH_PARENT,
+            true,
+            floatingView
+        )
+        floatingView.post {
+            floatingView.showContentView()
+        }
     }
 
     fun hide() {

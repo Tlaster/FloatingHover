@@ -138,6 +138,29 @@ class FloatingView : RelativeLayout {
         showContent()
     }
 
+    internal fun showContentView() {
+        context.registerReceiver(homeListenerReceiver, homeFilter)
+        isHomeReceiverRegistered = true
+        iconView.visibility = View.GONE
+        ValueAnimator.ofObject(ArgbEvaluator(), Color.TRANSPARENT, Color.argb(125, 0, 0, 0))
+            .apply {
+                addUpdateListener {
+                    this@FloatingView.setBackgroundColor(it.animatedValue as Int)
+                }
+            }.start()
+        contentView.visibility = View.VISIBLE
+        ViewAnimationUtils.createCircularReveal(
+            contentView,
+            contentViewCenterX.toInt(),
+            contentViewCenterY.toInt(),
+            0F,
+            Math.hypot(contentViewCenterX.toDouble(), contentViewCenterY.toDouble()).toFloat()
+        ).apply {
+            requestFocusable?.run()
+            start()
+        }
+    }
+
     private fun showContent() {
         context.registerReceiver(homeListenerReceiver, homeFilter)
         isHomeReceiverRegistered = true

@@ -32,5 +32,8 @@ class MainActivity : AppCompatActivity() {
         button.setOnClickListener {
             controller.show()
         }
+        content_button.setOnClickListener {
+            controller.showContentView()
+        }
     }
 }

@@ -18,10 +18,10 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
     <Button
-            android:id="@+id/hide_button"
+            android:id="@+id/content_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hide"
+            android:text="Show Content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
