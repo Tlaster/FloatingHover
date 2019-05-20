@@ -111,10 +111,9 @@ class FloatingController(private val context: Context, val floatingView: Floatin
             false,
             floatingView
         )
-        if (!isInit) {
-            return
+        floatingView.post {
+            showDragger()
         }
-        showDragger()
     }
 
     fun showContentView() {
